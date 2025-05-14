@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class GestaoEnergia {
+public class ConsumoEnergia {
     @Id
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
@@ -30,5 +30,5 @@ public class GestaoEnergia {
     private LocalDate dataLeitura;
     @Column(name = "consumo")
     private BigDecimal consumoKwh; //aqui é o consumo de energia em si
-    //criar equipamento dps
+    private String equipamento;
 }

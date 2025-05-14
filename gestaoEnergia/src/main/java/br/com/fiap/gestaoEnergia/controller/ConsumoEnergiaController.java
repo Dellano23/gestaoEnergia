@@ -1,7 +1,7 @@
 package br.com.fiap.gestaoEnergia.controller;
 
-import br.com.fiap.gestaoEnergia.model.GestaoEnergia;
-import br.com.fiap.gestaoEnergia.service.GestaoEnergiaService;
+import br.com.fiap.gestaoEnergia.model.ConsumoEnergia;
+import br.com.fiap.gestaoEnergia.service.ConsumoEnergiaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -11,20 +11,20 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class GestaoEnergiaController {
+public class ConsumoEnergiaController {
 
     @Autowired
-    private GestaoEnergiaService service;
+    private ConsumoEnergiaService service;
 
     @PostMapping("/gestao")
     @ResponseStatus(HttpStatus.CREATED)
-    public GestaoEnergia gravar(@RequestBody GestaoEnergia gestaoEnergia) {
+    public ConsumoEnergia gravar(@RequestBody ConsumoEnergia gestaoEnergia) {
         return service.gravar(gestaoEnergia);
     }
 
     @GetMapping("/gestao")
     @ResponseStatus(HttpStatus.OK)
-    public List<GestaoEnergia> listarTodasGestoes() {
+    public List<ConsumoEnergia> listarTodasGestoes() {
         return service.listarTodasGestoes();
     }
 
@@ -36,15 +36,21 @@ public class GestaoEnergiaController {
 
     @PutMapping("/gestao")
     @ResponseStatus(HttpStatus.OK)
-    public GestaoEnergia atualizar(GestaoEnergia gestaoEnergia){
+    public ConsumoEnergia atualizar(@RequestBody ConsumoEnergia gestaoEnergia){
         return service.atualizar(gestaoEnergia);
     }
 
     @GetMapping("/gestao/{dataInicail}/{dataFinal}")
-    public List<GestaoEnergia> listarPorData(
+    public List<ConsumoEnergia> listarPorData(
             @PathVariable LocalDate dataInical,
             @PathVariable LocalDate dataFinal
     ){
         return service.buscarGestaoPorData(dataInical,dataFinal);
+    }
+
+    @GetMapping("/gestao/maiorConsumo")
+    public List<ConsumoEnergia> listarMaioresConsumos() {
+        return service.listarTodosOrdenadosPorConsumo();
+
     }
 }
