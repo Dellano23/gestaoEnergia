@@ -1,17 +1,42 @@
 # Gestão Energia API
 
-A Gestão Energia API é uma aplicação Spring Boot desenvolvida para gerenciar o consumo de energia, alinhada aos temas de ESG (Environmental, Social and Governance). Permite operações CRUD para registros de consumo de energia, com documentação interativa via Swagger.
+Este projeto é uma aplicação Spring Boot desenvolvida para gerenciar o consumo de energia, alinhada aos temas de ESG (Environmental, Social and Governance), conforme proposta da atividade Microsserviços com Spring - Rest com Spring Boot feita pela FIAP, durante curso de Análise e Desenvolvimento de sistemas. 
+
+A aplicação permite operações CRUD para registros de consumo de energia de aparelhos domésticos, com documentação interativa via Swagger.
 
 Este repositório contém o código-fonte da API.
 
 **Conteúdo**
 
+- [Estrutura do Projeto](#estrutura-do-projeto)
 - [Stacks Utilizadas](#stacks-utilizadas)
 - [Instalar e rodar o projeto](#instalar-e-rodar-o-projeto)
   - [Dependências globais](#dependências-globais)
   - [Dependências locais](#dependências-locais)
   - [Rodar o projeto](#rodar-o-projeto)
 - [Acessar a API](#acessar-a-api)
+
+## Estrutura do Projeto
+
+A organização do código segue o padrão arquitetural em camadas, facilitando a manutenção e a separação de responsabilidades:
+
+```text
+src/main/java/br/com/fiap/gestaoEnergia
+├── advice      # Tratamento global de erros e exceções da API (ex: ApplicationExceptionHandler)
+├── config      # Classes de configuração geral (ex: Swagger/OpenAPI)
+├── controller  # Endpoints REST (exposição da API para o cliente)
+├── dto         # Data Transfer Objects (camada de transferência planejada)
+├── model       # Entidades JPA que mapeiam as tabelas no banco de dados (ex: ConsumoEnergia)
+├── repository  # Interfaces Spring Data JPA para comunicação com o banco
+└── service     # Regras de negócio e intermediação entre Controller e Repository
+```
+
+**Diretórios Relevantes:**
+* **`src/main/resources/db/migration`**: Scripts SQL do **Flyway** (ex: `V1__criar-tabela-gestao.sql`) para controle de versão do esquema do banco de dados.
+* **`src/test/java`**: Classes de testes automatizados.
+* **`Dockerfile`**: Receita para a criação da imagem e execução da aplicação via containers.
+
+*Nota técnica: Atualmente, os controllers estão manipulando diretamente as Entidades JPA (`ConsumoEnergia`). A pasta `dto` foi estruturada para futuras evoluções de abstração de dados.*
 
 ## Stacks Utilizadas
 
@@ -82,11 +107,12 @@ Após iniciar, acesse:
 - **Endpoints**: Todos sob `/api/gestao/*`
 
 Exemplo de endpoints:
-- GET /api/gestao - Listar todos os consumos
-- POST /api/gestao - Criar novo consumo
-- PUT /api/gestao - Atualizar consumo
-- DELETE /api/gestao/{id} - Excluir consumo
+- GET `/api/gestao` - Listar todos os consumos
+- POST `/api/gestao` - Criar novo consumo
+- PUT `/api/gestao` - Atualizar consumo
+- DELETE `/api/gestao/{id}` - Excluir consumo
 
 Observações:
 - Para parar o container, use `docker stop <container-id>`
 - O banco H2 é em memória, dados são perdidos ao reiniciar
+```
