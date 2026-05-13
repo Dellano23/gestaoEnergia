@@ -1,5 +1,6 @@
 package br.com.fiap.gestaoEnergia.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty; // Import necessário
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @EqualsAndHashCode
 public class ConsumoEnergia {
+
     @Id
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
@@ -25,10 +27,14 @@ public class ConsumoEnergia {
             allocationSize = 1
     )
     @Column(name = "id_consumo")
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY) // Define o ID como apenas leitura
     private Long idConsumo;
+
     @Column(name = "data_leitura")
     private LocalDate dataLeitura;
+
     @Column(name = "consumo")
-    private BigDecimal consumoKwh; //aqui é o consumo de energia em si
+    private BigDecimal consumoKwh;
+
     private String equipamento;
 }

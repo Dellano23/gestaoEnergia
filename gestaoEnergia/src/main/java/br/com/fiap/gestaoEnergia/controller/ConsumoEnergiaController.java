@@ -10,45 +10,44 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
 public class ConsumoEnergiaController {
 
     @Autowired
     private ConsumoEnergiaService service;
 
-    @PostMapping("/gestao")
+    @PostMapping("/api/gestao")
     @ResponseStatus(HttpStatus.CREATED)
     public ConsumoEnergia gravar(@RequestBody ConsumoEnergia gestaoEnergia) {
         return service.gravar(gestaoEnergia);
     }
 
-    @GetMapping("/gestao")
+    @GetMapping("/api/gestao")
     @ResponseStatus(HttpStatus.OK)
     public List<ConsumoEnergia> listarTodasGestoes() {
         return service.listarTodasGestoes();
     }
 
-    @DeleteMapping("/gestao/{id}")
+    @DeleteMapping("/api/gestao/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void excluir(@PathVariable Long id){
         service.excluir(id);
     }
 
-    @PutMapping("/gestao")
+    @PutMapping("/api/gestao")
     @ResponseStatus(HttpStatus.OK)
     public ConsumoEnergia atualizar(@RequestBody ConsumoEnergia gestaoEnergia){
         return service.atualizar(gestaoEnergia);
     }
 
-    @GetMapping("/gestao/{dataInicail}/{dataFinal}")
+    @GetMapping("/api/gestao/{dataInicial}/{dataFinal}")
     public List<ConsumoEnergia> listarPorData(
-            @PathVariable LocalDate dataInical,
+            @PathVariable LocalDate dataInicial,
             @PathVariable LocalDate dataFinal
     ){
-        return service.buscarGestaoPorData(dataInical,dataFinal);
+        return service.buscarGestaoPorData(dataInicial,dataFinal);
     }
 
-    @GetMapping("/gestao/maiorConsumo")
+    @GetMapping("/api/gestao/maiorConsumo")
     public List<ConsumoEnergia> listarMaioresConsumos() {
         return service.listarTodosOrdenadosPorConsumo();
 
