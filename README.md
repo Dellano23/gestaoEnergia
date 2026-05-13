@@ -72,7 +72,7 @@ docker -v
 Clone o repositório e acesse o diretório do projeto:
 
 ```bash
-git clone <url-do-repositorio>
+git clone https://github.com/Dellano23/gestaoEnergia.git
 cd gestaoEnergia
 ```
 
